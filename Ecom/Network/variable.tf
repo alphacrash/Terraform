@@ -42,3 +42,12 @@ variable "pri_dns_label" {
   type    = string
   default = "TEST"
 }
+
+variable "defined_tags" {
+  description = "Defined tags for the compartment"
+  type        = map(string)
+  default = {
+    "INR" = "Indian Rupee"
+    "USD" = "United States Dollar"
+  }
+}

@@ -3,6 +3,7 @@ module "compartment" {
   compartment_id          = var.tenancy_ocid
   compartment_name        = var.compartment_display_name
   compartment_description = var.compartment_description
+  defined_tags            = var.defined_tags
 }
 
 module "vcn_main" {
