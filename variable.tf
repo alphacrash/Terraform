@@ -17,22 +17,12 @@ variable "load_balancer_map" {
   }))
   default = {
     "lb1" = {
-      display_name               = "test_lb1"
+      display_name               = "ESL_LB"
       shape                      = "100Mbps"
-      subnet_ids                 = ["ocid1.subnet.oc1..exampleuniqueID1", "ocid1.subnet.oc1..exampleuniqueID2"]
-      defined_tags               = { "DT-TAGS.backup" = "NA" }
+      subnet_ids                 = ["ocid1.subnet.oc1.eu-frankfurt-1.aaaaaaaasqmfx3joposilx5hjkpzhqlw2vq6my4t2npwycq5swxokyreg4aa"]
+      defined_tags               = {}
       is_private                 = false
-      network_security_group_ids = ["ocid1.networksecuritygroup.oc1..exampleuniqueID1", "ocid1.networksecuritygroup.oc1..exampleuniqueID2"]
-      maximum_bandwidth_in_mbps  = 100
-      minimum_bandwidth_in_mbps  = 10
-    }
-    "lb2" = {
-      display_name               = "test_lb2"
-      shape                      = "100Mbps"
-      subnet_ids                 = ["ocid1.subnet.oc1..exampleuniqueID3", "ocid1.subnet.oc1..exampleuniqueID4"]
-      defined_tags               = { "DT-TAGS.backup" = "NA" }
-      is_private                 = true
-      network_security_group_ids = ["ocid1.networksecuritygroup.oc1..exampleuniqueID3", "ocid1.networksecuritygroup.oc1..exampleuniqueID4"]
+      network_security_group_ids = []
       maximum_bandwidth_in_mbps  = 100
       minimum_bandwidth_in_mbps  = 10
     }
@@ -49,19 +39,12 @@ variable "load_balancer_backend_set_map" {
     policy                = string
   }))
   default = {
-    "bks1" = {
+    "backendset1" = {
       health_check_protocol = "TCP"
       health_check_port     = 22
-      load_balancer_name    = "test_lb1"
-      display_name          = "backendset1"
+      load_balancer_name    = "ESL_LB"
+      display_name          = "ESL_BACKEND_SET"
       policy                = "ROUND_ROBIN"
-    }
-    "bks2" = {
-      health_check_protocol = "HTTP"
-      health_check_port     = 80
-      load_balancer_name    = "test_lb2"
-      display_name          = "backendset2"
-      policy                = "LEAST_CONNECTIONS"
     }
   }
 }
@@ -76,15 +59,9 @@ variable "load_balancer_backend_map" {
   }))
   default = {
     "backend1" = {
-      backendset_name    = "backendset1"
+      backendset_name    = "ESL_BACKEND_SET"
       backend_ip_address = "192.0.2.1"
-      load_balancer_name = "test_lb1"
-      backend_port       = 8080
-    }
-    "backend2" = {
-      backendset_name    = "backendset2"
-      backend_ip_address = "192.0.2.2"
-      load_balancer_name = "test_lb2"
+      load_balancer_name = "ESL_LB"
       backend_port       = 8080
     }
   }
@@ -101,18 +78,11 @@ variable "load_balancer_listener_map" {
   }))
   default = {
     "listener1" = {
-      backendset_name    = "backendset1"
-      load_balancer_name = "test_lb1"
-      listener_name      = "listener1"
+      backendset_name    = "ESL_BACKEND_SET"
+      load_balancer_name = "ESL_LB"
+      listener_name      = "ESL_LISTENER"
       listener_port      = 80
       listener_protocol  = "HTTP"
-    }
-    "listener2" = {
-      backendset_name    = "backendset2"
-      load_balancer_name = "test_lb2"
-      listener_name      = "listener2"
-      listener_port      = 443
-      listener_protocol  = "HTTPS"
     }
   }
 }
