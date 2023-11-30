@@ -27,4 +27,6 @@ module "load_balancer_listener_map" {
   source                     = "./modules/load_balancer_listener"
   load_balancer_ids          = module.load_balancers.load_balancer_ids
   load_balancer_listener_map = var.load_balancer_listener_map
+
+  depends_on = [module.load_balancers, module.load_balancer_backend_sets]
 }
